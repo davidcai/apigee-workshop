@@ -1,8 +1,16 @@
-var http = require('http');
+var express = require('express');
+var app = express();
 
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(1337, "127.0.0.1");
+app.listen('1337');
 
-console.log('Server running at http://127.0.0.1:1337/');
+app.get('/hello', function(req, res) {
+  res.send('Hello world');
+});
+
+app.get('/today', function(req, res) {
+  res.json({ today: new Date() });
+});
+
+app.use('/', express.static(__dirname));
+
+console.log('Server running');
